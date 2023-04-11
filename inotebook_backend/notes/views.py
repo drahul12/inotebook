@@ -37,7 +37,7 @@ class NotesView(APIView):
             return Response({"msg": "Note Added"}, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
-    def patch(self, request, pk, format=None):
+    def put(self, request, pk, format=None):
         note = self.get_object(pk, request.user)
         serializer = NotesSerializer(note, data=request.data)
         if serializer.is_valid():
@@ -49,5 +49,5 @@ class NotesView(APIView):
     def delete(self, request, pk, format=None):
         note = self.get_object(pk, request.user)
         note.delete()
-        return Response(status=status.HTTP_204_NO_CONTENT)
+        return Response({"msg": "Note Deleted"}, status=status.HTTP_200_OK)
     
